@@ -26,9 +26,14 @@ const Wrapper = styled.div`
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};
+  display: flex;
+  align-items: center;
+  padding-inline: 32px;
+  height: 40px;
 `;
 
 const MarketingMessage = styled.span`
+  margin-right: auto;
   color: ${COLORS.white};
 `;
 
@@ -37,6 +42,7 @@ const HelpLink = styled.a`
   text-decoration: none;
   outline-offset: 2px;
 
+  margin-inline: 24px;
   &:not(:focus-visible) {
     outline: none;
   }
