@@ -57,12 +57,13 @@ const LeftColumn = styled.div`
 
 const MainColumn = styled.div`
   flex: 1;
+  align-items: baseline;
 `;
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 `;
 
 const Title = styled.h2`
