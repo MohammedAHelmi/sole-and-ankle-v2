@@ -29,7 +29,7 @@ const ShoeCard = ({
     ? 'on-sale'
     : isNewShoe(releaseDate)
       ? 'new-release'
-      : 'default'
+      : 'default';
 
   return (
     <Link href={`/shoe/${slug}`}>
@@ -40,11 +40,15 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <PricingBox>
+            <Price variant={variant}>{formatPrice(price)}</Price>
+            { variant === 'on-sale' && <SalePrice>{formatPrice(salePrice)}</SalePrice> }
+          </PricingBox>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
+        { variant !== 'default' && <Banner variant={variant}>{variant === "new-release"? "Just Released!": "Sale"}</Banner> }
       </Wrapper>
     </Link>
   );
@@ -53,18 +57,38 @@ const ShoeCard = ({
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+  flex: 1 1 370px;
 `;
 
-const Wrapper = styled.article``;
-
-const ImageWrapper = styled.div`
+const Wrapper = styled.article`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Banner = styled.div`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  background-color: ${({variant}) => variant === 'on-sale'? COLORS.primary: COLORS.secondary};
+  color: ${COLORS.white};
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  padding: 7px 9px 9px 10px;
+  border-radius: 2px;
+`
+
+const ImageWrapper = styled.div`
+  position: relative;
+  border-radius: 16px 16px 4px 4px;
+  overflow: hidden;
+`;
+
+const Image = styled.img`
+  width: 100%;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  position: relative;
 `;
 
 const Name = styled.h3`
@@ -72,7 +96,17 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration-line: ${({variant}) => variant === "on-sale"? 'line-through': 'none'}
+`;
+
+const PricingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+`
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
